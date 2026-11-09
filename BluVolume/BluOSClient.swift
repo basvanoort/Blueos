@@ -24,7 +24,8 @@ enum BluOSError: LocalizedError {
 }
 
 /// Minimal client for the BluOS HTTP API (http://<player>:11000).
-final class BluOSClient {
+/// Immutable after init, so it is safe to call from any actor.
+final class BluOSClient: Sendable {
     let host: String
     let port: Int
 

@@ -36,12 +36,10 @@ final class PlayerDiscovery: NSObject, ObservableObject {
     private static func ipv4Address(from addresses: [Data]?) -> String? {
         for data in addresses ?? [] {
             let ip: String? = data.withUnsafeBytes { raw in
+                // Darwin sockaddr_in: [0] sin_len, [1] sin_family, [2...3] port, [4...7] address.
                 guard raw.count >= MemoryLayout<sockaddr_in>.size,
                       raw[1] == UInt8(AF_INET) else { return nil }
-                var sin = raw.loadUnaligned(as: sockaddr_in.self)
-                var buffer = [CChar](repeating: 0, count: Int(INET_ADDRSTRLEN))
-                guard inet_ntop(AF_INET, &sin.sin_addr, &buffer, socklen_t(INET_ADDRSTRLEN)) != nil else { return nil }
-                return String(cString: buffer)
+                return "\(raw[4]).\(raw[5]).\(raw[6]).\(raw[7])"
             }
             if let ip { return ip }
         }

@@ -78,7 +78,7 @@ struct VolumeKnob: View {
                 }
 
                 // Screen y points down, so atan2 grows clockwise: clockwise = louder.
-                let angle = atan2(dy, dx) * 180 / .pi
+                let angle = Double(atan2(dy, dx)) * 180 / .pi
                 defer { lastAngle = angle }
                 guard let last = lastAngle else { return }
 
