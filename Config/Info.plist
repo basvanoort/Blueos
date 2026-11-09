@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- BluOS players speak plain HTTP on the local network (port 11000). -->
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
+	<!-- Bonjour service advertised by BluOS players, used for auto-discovery. -->
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_musc._tcp</string>
+	</array>
+</dict>
+</plist>
